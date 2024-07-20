@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.formatDocument": "explicit"
+  },
+  "eslint.probe": [
+      "javascript",
+      "javascriptreact",
+  ],
+"editor.formatOnSaveMode": "file", // required to format on save
+"files.autoSave": "onFocusChange", // optional but recommended
+"javascript.validate.enable": true,
+"[javascript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"prisma.fileWatcher": true,
+"[prisma]": {
+  "editor.defaultFormatter": "Prisma.prisma"
+}
+}
