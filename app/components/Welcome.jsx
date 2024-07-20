@@ -3,7 +3,7 @@ import { useState } from "react";
 import RegisterAndLogin from "./RegisterAndLogin";
 import Image from "next/image";
 
-const Welcome = () => {
+const Welcome = ({ setIsLoggedIn }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -16,7 +16,11 @@ const Welcome = () => {
 
   return (
     <div>
-      <RegisterAndLogin isOpen={isModalOpen} onClose={handleCloseModal} />
+      <RegisterAndLogin
+        isOpen={isModalOpen}
+        setIsLoggedIn={setIsLoggedIn}
+        onClose={handleCloseModal}
+      />
 
       <section className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
         <h2 className="text-2xl text-black font-semibold leading-snug md:text-4xl">

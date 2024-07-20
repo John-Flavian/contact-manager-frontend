@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const RegisterAndLogin = ({ isOpen, onClose }) => {
+const RegisterAndLogin = ({ isOpen, onClose, setIsLoggedIn }) => {
   const [activeTab, setActiveTab] = useState("signup");
 
   if (!isOpen) return null;
@@ -59,6 +59,8 @@ const RegisterAndLogin = ({ isOpen, onClose }) => {
             validationSchema={signupValidationSchema}
             onSubmit={(values) => {
               console.log(values);
+              setIsLoggedIn(true);
+              // window.reload();
               onClose();
             }}
           >
@@ -163,6 +165,7 @@ const RegisterAndLogin = ({ isOpen, onClose }) => {
             validationSchema={loginValidationSchema}
             onSubmit={(values) => {
               console.log(values);
+              setIsLoggedIn(true);
               onClose();
             }}
           >

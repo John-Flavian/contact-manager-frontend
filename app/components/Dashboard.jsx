@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import ContactForm from "./ContactForm";
 
 const Dashboard = () => {
   const [contacts, setContacts] = useState([
@@ -12,15 +13,33 @@ const Dashboard = () => {
     },
   ]);
 
-  const handleAddContact = () => {
-    // Add new contact logic
-    const newContact = {
-      id: Date.now(),
-      firstName: "New",
-      lastName: "Contact",
-      phoneNumber: "000-000-0000",
-    };
-    setContacts([...contacts, newContact]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentContact, setCurrentContact] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleOpenModal = (contact = null) => {
+    setCurrentContact(contact);
+    setIsEdit(!!contact);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setCurrentContact(null);
+    setIsEdit(false);
+  };
+
+  const handleSaveContact = (contact) => {
+    if (isEdit) {
+      setContacts(
+        contacts.map((c) =>
+          c.id === currentContact.id ? { ...currentContact, ...contact } : c
+        )
+      );
+    } else {
+      const newContact = { id: Date.now(), ...contact };
+      setContacts([...contacts, newContact]);
+    }
   };
 
   const handleEditContact = (id) => {
@@ -41,12 +60,21 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col items-center p-4 bg-gray-100 min-h-[80vh] w-full sm:max-w-md mx-auto">
+      <ContactForm
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSave={handleSaveContact}
+        initialValues={
+          currentContact || { firstName: "", lastName: "", phoneNumber: "" }
+        }
+        isEdit={isEdit}
+      />
       <h1 className="text-3xl text-black font-bold mb-4">Welcome John</h1>
       <div className="w-full max-w-2xl">
         <div className="flex justify-between mb-4">
           <h2 className="text-2xl text-black font-semibold">Contacts</h2>
           <button
-            onClick={handleAddContact}
+            onClick={() => handleOpenModal()}
             className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
           >
             Add Contact
@@ -66,7 +94,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <button
-                  onClick={() => handleEditContact(contact.id)}
+                  onClick={() => handleOpenModal(contact)}
                   className="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 mr-2"
                 >
                   Edit
