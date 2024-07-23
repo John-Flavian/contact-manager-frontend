@@ -1,10 +1,36 @@
-# Contact Manager
+# Contact Manager (Frontend)
 
-This project was built with [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Overview
 
-## Getting Started
+The **Contact Manager** is a web application built with [Next.js](https://nextjs.org/), designed to manage and organize user contact information efficiently. This application provides features for creating, editing, deleting, and viewing contacts.
 
-First, run the development server:
+## Installation
+
+To set up the project, you need to install the necessary dependencies. You can use any of the following package managers:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+## Configuration
+
+### Environment Variables
+
+Ensure that your backend server is running and configure the environment variables for the application. Create a `.env` file in the root directory of the project and set the base URL for the API:
+
+```env
+NEXT_PUBLIC_BASE_URL=http://localhost:5000/api
+```
+
+## Development
+
+To start the development server, use one of the following commands:
 
 ```bash
 npm run dev
@@ -16,23 +42,20 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Navigate to [http://localhost:3000](http://localhost:3000) in your web browser to view the application in action.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **User Registration**: Create a new user account.
+- **User Login**: Authenticate users and access their contact information.
+- **Contact Management**: Create, update, and delete contacts.
 
-## Learn More
+## Contribution
 
-To learn more about Next.js, take a look at the following resources:
+This codebase is developed by [@John-Flavian](https://github.com/John-Flavian). Contributions and feedback are welcome.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For more information, visit the [Backend Repository](https://github.com/John-Flavian/hux-assessment-backend).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Feel free to adjust any sections according to your project's specifics or personal preferences!

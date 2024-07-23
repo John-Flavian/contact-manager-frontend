@@ -23,30 +23,32 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-50">
-      <header className="absolute top-0 w-full py-6 bg-blue-600">
-        <h1 className="text-3xl font-bold text-center text-white">
-          Contact Manager
-        </h1>
-      </header>
-      <hr className="mb-20" />
-      {loading ? (
-        <div>Loading...</div>
-      ) : !isLoggedIn ? (
-        <Welcome setIsLoggedIn={setIsLoggedIn} />
-      ) : (
-        <Dashboard
-          accessToken={savedUser?.accessToken}
-          setIsLoggedIn={setIsLoggedIn}
-        />
-      )}
+    <div className="flex flex-col min-h-screen">
+      <main className="flex flex-col flex-grow items-center justify-center min-h-screen py-2 bg-gray-50">
+        <header className="absolute top-0 w-full py-6 bg-blue-600">
+          <h1 className="text-3xl font-bold text-center text-white">
+            Contact Manager
+          </h1>
+        </header>
+        <hr className="mb-20" />
+        {loading ? (
+          <div>Loading...</div>
+        ) : !isLoggedIn ? (
+          <Welcome setIsLoggedIn={setIsLoggedIn} />
+        ) : (
+          <Dashboard
+            accessToken={savedUser?.accessToken}
+            setIsLoggedIn={setIsLoggedIn}
+          />
+        )}
 
-      <Toaster />
-      <footer className="absolute bottom-0 w-full py-6 bg-blue-600">
+        <Toaster />
+      </main>
+      <footer className="w-full py-6 bg-blue-600">
         <p className="text-sm text-center text-white">
           &copy; 2024 Contact Manager. All rights reserved.
         </p>
       </footer>
-    </main>
+    </div>
   );
 }
