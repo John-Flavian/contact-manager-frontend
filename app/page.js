@@ -1,12 +1,27 @@
 "use client";
-import Image from "next/image";
-import RegisterAndLogin from "./components/RegisterAndLogin";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Dashboard from "./components/Dashboard";
 import Welcome from "./components/Welcome";
+import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  let savedUser;
+
+  if (typeof window !== "undefined") {
+    const user = localStorage?.getItem("user");
+    if (user) savedUser = JSON?.parse(user);
+  }
+
+  useEffect(() => {
+    if (savedUser) {
+      setIsLoggedIn(true);
+    }
+    setLoading(false);
+  }, []);
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-50">
       <header className="absolute top-0 w-full py-6 bg-blue-600">
@@ -15,9 +30,19 @@ export default function Home() {
         </h1>
       </header>
       <hr className="mb-20" />
-      {!isLoggedIn ? <Welcome setIsLoggedIn={setIsLoggedIn} /> : <Dashboard />}
+      {loading ? (
+        <div>Loading...</div>
+      ) : !isLoggedIn ? (
+        <Welcome setIsLoggedIn={setIsLoggedIn} />
+      ) : (
+        <Dashboard
+          accessToken={savedUser?.accessToken}
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      )}
 
-      <footer className="relative bottom-0 w-full py-6 bg-blue-600">
+      <Toaster />
+      <footer className="absolute bottom-0 w-full py-6 bg-blue-600">
         <p className="text-sm text-center text-white">
           &copy; 2024 Contact Manager. All rights reserved.
         </p>

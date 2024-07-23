@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { publicRequest } from "../requestMethods";
+import toast from "react-hot-toast";
 
 const RegisterAndLogin = ({ isOpen, onClose, setIsLoggedIn }) => {
   const [activeTab, setActiveTab] = useState("signup");
@@ -57,11 +59,32 @@ const RegisterAndLogin = ({ isOpen, onClose, setIsLoggedIn }) => {
               confirmPassword: "",
             }}
             validationSchema={signupValidationSchema}
-            onSubmit={(values) => {
-              console.log(values);
-              setIsLoggedIn(true);
-              // window.reload();
-              onClose();
+            onSubmit={async (values, { setSubmitting }) => {
+              try {
+                const { firstName, lastName, email, password } = values;
+
+                let toastId = toast.loading("Signing up...");
+
+                await publicRequest
+                  .post("/auth/signup", {
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                  })
+                  .then((res) => {
+                    toast.success(res.data.message, { id: toastId });
+                    localStorage.setItem("user", JSON.stringify(res.data.data));
+                    setIsLoggedIn(true);
+                    return res.data;
+                  })
+                  .catch(() => toast.error("Signup failed", { id: toastId }));
+              } catch (error) {
+                console.error(error);
+              } finally {
+                onClose();
+                setSubmitting(false);
+              }
             }}
           >
             <Form>
@@ -163,10 +186,32 @@ const RegisterAndLogin = ({ isOpen, onClose, setIsLoggedIn }) => {
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={loginValidationSchema}
-            onSubmit={(values) => {
-              console.log(values);
-              setIsLoggedIn(true);
-              onClose();
+            onSubmit={async (values, { setSubmitting }) => {
+              try {
+                const { email, password } = values;
+
+                let toastId = toast.loading("Signing up...");
+
+                await publicRequest
+                  .post("/auth/login", {
+                    email,
+                    password,
+                  })
+                  .then((res) => {
+                    toast.success(res.data.message, { id: toastId });
+                    localStorage.setItem("user", JSON.stringify(res.data.data));
+                    setIsLoggedIn(true);
+                  })
+                  .catch(() => {
+                    toast.error("Login failed", { id: toastId });
+                    setIsLoggedIn(false);
+                  });
+              } catch (error) {
+                console.error(error);
+              } finally {
+                setSubmitting(false);
+                onClose();
+              }
             }}
           >
             <Form>
