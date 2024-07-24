@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <main className="flex flex-col flex-grow items-center justify-center min-h-screen py-2 bg-gray-50">
+      <main className="flex flex-col flex-grow items-center justify-center min-h-[90vh] py-2 bg-gray-50">
         <header className="absolute top-0 w-full py-6 bg-blue-600">
           <h1 className="text-3xl font-bold text-center text-white">
             Contact Manager
